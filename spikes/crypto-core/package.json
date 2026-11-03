@@ -1,0 +1,9 @@
+{
+  "name": "sigil-crypto-core-spike",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Working reference for Sigil's trust model. Dependency-free (node:crypto). Replace internals with SD-JWT VC + Bitstring Status List libs once the web app exists; keep the tests.",
+  "scripts": { "test": "node --test" },
+  "engines": { "node": ">=20" }
+}

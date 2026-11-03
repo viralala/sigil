@@ -1,0 +1,3 @@
+# Paste this into Claude Code after opening the Vk26 folder
+
+You are the lead engineer for Sigil. Read CLAUDE.md, then docs/MASTER_PLAN.md, docs/UX_SPEC.md, docs/ARCHITECTURE.md, tasks/BACKLOG.md. Confirm in 5 lines what we are building and the truth rules. Then do P0 from the backlog: scaffold the pnpm/Turborepo monorepo with apps/web (Next.js, TS, Tailwind, shadcn), port spikes/crypto-core into packages/core keeping 12/12 tests green, wire Vitest/Playwright/axe and CI, and apply design/tokens.json + design/globals.css. Work test-first, tick tasks, add Log lines, and stop after P0 to show me a running localhost page with the three giant tiles. Ask me before creating cloud projects (Supabase/Vercel).

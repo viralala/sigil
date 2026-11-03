@@ -1,0 +1,21 @@
+{
+  "name": "sigil",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "turbo run dev --filter=web",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "e2e": "pnpm --filter web e2e",
+    "a11y": "pnpm --filter web a11y",
+    "spike": "node --test spikes/crypto-core/sigil.test.js",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "turbo": "^2.3.3"
+  }
+}

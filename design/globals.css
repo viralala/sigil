@@ -1,0 +1,493 @@
+/* Sigil x CESAC Fantastic 4. Single source of the look: apps/web/src/app/globals.css imports this file
+   after Tailwind. Values come from design/tokens.json, which cites the CESAC files they were taken from.
+   Fonts are next/font variables set in apps/web/src/app/layout.tsx:
+   --font-display (Big Shoulders), --font-body (Figtree), --font-mono (Space Mono), --font-script (Shrikhand). */
+
+:root {
+  --cream: #fff5e3;
+  --cream-2: #f6e7cb;
+  --cream-3: #ead8b4;
+  --paper: #fffdf8;
+  --ink: #0a1a33;
+  --navy: #0b2350;
+  --navy-2: #12305f;
+  --royal: #1f6fd1;
+  --royal-2: #1557ad;
+  --sky: #9ed8ee;
+  --sky-2: #cdeef8;
+  --sky-3: #6dbfe3;
+  --flame: #ff6a2b;
+  --ember: #ffb23a;
+  --sun: #ffd27a;
+  --stone: #e3c08f;
+  --crimson: #c6440d;
+  --muted: #4a5d78;
+  --line: rgba(10, 26, 51, 0.12);
+
+  /* Sigil traffic light (always with an icon and a word) */
+  --ok: #1e7f52;
+  --ok-soft: #dcf2e6;
+  --warn: #ffb23a;
+  --warn-soft: #ffefd0;
+  --bad: #b3261e;
+  --bad-soft: #f9dedc;
+
+  --edge: var(--navy);
+  --sh-1: 2px 2px 0 rgba(11, 35, 80, 0.9);
+  --sh-2: 4px 4px 0 var(--navy);
+  --sh-3: 6px 6px 0 var(--navy);
+
+  --r-sm: 12px;
+  --r-btn: 14px;
+  --r-md: 18px;
+  --r-card: 26px;
+  --r-xl: 36px;
+  --r-sec: 44px;
+  --r-tag: 6px;
+
+  --spring: cubic-bezier(0.2, 0.8, 0.3, 1);
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --fd: var(--font-display), "Arial Narrow", Impact, sans-serif;
+  --fb: var(--font-body), system-ui, sans-serif;
+  --fm: var(--font-mono), ui-monospace, monospace;
+  --fs: var(--font-script), "Cooper Black", Georgia, serif;
+
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-cream-2: var(--cream-2);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-navy: var(--navy);
+  --color-royal: var(--royal);
+  --color-sky: var(--sky);
+  --color-sky-2: var(--sky-2);
+  --color-flame: var(--flame);
+  --color-ember: var(--ember);
+  --color-stone: var(--stone);
+  --color-muted: var(--muted);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --font-display: var(--fd);
+  --font-sans: var(--fb);
+  --font-mono: var(--fm);
+  --radius-btn: var(--r-btn);
+  --radius-card: var(--r-card);
+  --radius-tag: var(--r-tag);
+  --shadow-hard-1: var(--sh-1);
+  --shadow-hard-2: var(--sh-2);
+  --shadow-hard-3: var(--sh-3);
+}
+
+@layer base {
+  html {
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 18px;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (min-width: 768px) {
+    html {
+      font-size: 17px;
+    }
+  }
+  body {
+    margin: 0;
+    font: 400 1rem/1.55 var(--fb);
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  .display {
+    font-family: var(--fd);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.92;
+    letter-spacing: 0;
+    text-wrap: balance;
+    margin: 0;
+  }
+  :focus-visible {
+    outline: 3px solid var(--flame);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--ember);
+    color: var(--ink);
+  }
+}
+
+/* Component classes sit in the components layer, so Tailwind utilities on an element still win
+   (the same arrangement as cesac-app/src/themes/fantastic-four.css). */
+@layer components {
+  /* grounds: halftone print dots */
+  .halftone {
+    background-color: var(--cream);
+    background-image: radial-gradient(circle, rgba(31, 111, 209, 0.13) 1.5px, transparent 2.1px);
+    background-size: 18px 18px;
+  }
+  .halftone-royal {
+    background-color: var(--royal);
+    background-image: radial-gradient(circle, rgba(255, 245, 227, 0.14) 1.5px, transparent 2.1px);
+    background-size: 18px 18px;
+    color: var(--cream);
+  }
+  .halftone-navy {
+    background-color: var(--navy);
+    background-image: radial-gradient(circle, rgba(205, 238, 248, 0.1) 1.5px, transparent 2.1px);
+    background-size: 18px 18px;
+    color: var(--cream);
+  }
+
+  .wrap {
+    padding-left: max(clamp(16px, 4vw, 64px), env(safe-area-inset-left, 0px));
+    padding-right: max(clamp(16px, 4vw, 64px), env(safe-area-inset-right, 0px));
+  }
+
+  /* eyebrow: mono capitals between two small stars, no capsule (f4.css) */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font: 700 12px/1 var(--fm);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .eyebrow::before,
+  .eyebrow::after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background: var(--flame);
+    clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+  }
+  .label {
+    font: 700 12px/1.3 var(--fm);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .script {
+    font-family: var(--fs);
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  /* The CESAC mark, recoloured by masking (team branding only) */
+  .cesac-mark {
+    display: inline-block;
+    width: 1em;
+    height: 1.06em;
+    background: currentColor;
+    -webkit-mask: url("/cesac/cesac-mark-96.png") center / contain no-repeat;
+    mask: url("/cesac/cesac-mark-96.png") center / contain no-repeat;
+    flex: none;
+  }
+
+  /* spark: the four-point star (f4.css) */
+  .spark {
+    position: absolute;
+    width: var(--s, 22px);
+    aspect-ratio: 1;
+    background: var(--c, var(--cream));
+    clip-path: polygon(50% 0, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0 50%, 42% 42%);
+    animation: twinkle var(--d, 3.2s) ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes twinkle {
+    50% {
+      transform: scale(0.45) rotate(45deg);
+      opacity: 0.5;
+    }
+  }
+
+  /* buttons: a rounded rectangle with a hard shadow. Never a pill. (f4.css .btn) */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 56px;
+    padding: 14px 24px;
+    border-radius: var(--r-btn);
+    border: 2px solid var(--navy);
+    box-shadow: var(--sh-2);
+    font: 700 1rem/1.1 var(--fb);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      transform 0.25s var(--spring),
+      box-shadow 0.25s ease,
+      background-color 0.2s;
+    will-change: transform;
+  }
+  .btn:hover {
+    transform: translate(-2px, -2px) rotate(-1deg);
+    box-shadow: var(--sh-3);
+  }
+  .btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--navy);
+  }
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    cursor: progress;
+    opacity: 0.75;
+    transform: none;
+    box-shadow: var(--sh-1);
+  }
+  .btn-flame {
+    background: var(--flame);
+    color: var(--ink);
+  }
+  .btn-royal {
+    background: var(--royal);
+    color: #fff;
+  }
+  .btn-cream {
+    background: var(--cream);
+    color: var(--navy);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--navy);
+    box-shadow: none;
+  }
+  .btn-ghost:hover {
+    box-shadow: var(--sh-1);
+  }
+
+  /* card: cream paper, navy outline, offset shadow */
+  .card {
+    background: var(--paper);
+    border: 2px solid var(--edge);
+    border-radius: var(--r-card);
+    box-shadow: var(--sh-2);
+  }
+
+  .field {
+    width: 100%;
+    min-height: 56px;
+    padding: 12px 16px;
+    border-radius: var(--r-sm);
+    border: 2px solid var(--navy);
+    background: var(--paper);
+    color: var(--ink);
+    font: 500 1rem/1.3 var(--fb);
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--royal);
+    box-shadow: var(--sh-1);
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 9px;
+    border-radius: var(--r-tag);
+    font: 700 11px/1 var(--fm);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--ember);
+    color: var(--ink);
+  }
+
+  .ico {
+    width: 1em;
+    height: 1em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex: none;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  /* reveal on load, only when motion is allowed */
+  /* transform only: fading from opacity 0 would delay the largest paint */
+  @keyframes rise {
+    from {
+      transform: translateY(16px);
+    }
+  }
+  .rise {
+    animation: rise 0.9s var(--ease-out) both;
+  }
+
+
+  /* ---------- Sigil components built on the CESAC look ---------- */
+
+  /* busy indicator inside a button: three dots, no bare spinner */
+  .busy-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: currentColor;
+    animation: busy 0.9s var(--ease-out) infinite alternate;
+  }
+  @keyframes busy {
+    to {
+      transform: rotate(90deg) scale(0.6);
+      opacity: 0.4;
+    }
+  }
+
+  /* the three front doors (CESAC power cards: 3px outline, 6px shadow, tilt on hover) */
+  .big-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 260px;
+    padding: 22px 22px 24px;
+    border-radius: var(--r-card);
+    border: 3px solid var(--navy);
+    box-shadow: var(--sh-3);
+    text-decoration: none;
+    overflow: hidden;
+    transition:
+      transform 0.35s var(--spring),
+      box-shadow 0.35s ease;
+  }
+  .big-tile:hover {
+    transform: translate(-3px, -3px) rotate(-0.6deg);
+    box-shadow: 9px 9px 0 var(--navy);
+  }
+  .big-tile:active {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0 var(--navy);
+  }
+  .big-tile-glyph {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--r-md);
+    border: 2px solid var(--navy);
+    background: var(--paper);
+    color: var(--navy);
+    font-size: 34px;
+    box-shadow: var(--sh-1);
+  }
+  .big-tile-title {
+    margin-top: auto;
+    font: 900 clamp(40px, 4.4vw, 60px) / 0.9 var(--fd);
+    text-transform: uppercase;
+  }
+  .big-tile-body {
+    font-weight: 500;
+    max-width: 30ch;
+  }
+  .big-tile-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    min-height: 48px;
+    padding: 10px 16px;
+    border-radius: var(--r-btn);
+    border: 2px solid var(--navy);
+    background: var(--paper);
+    color: var(--navy);
+    font: 700 1rem/1 var(--fb);
+    box-shadow: var(--sh-1);
+  }
+  .tile-flame {
+    background: var(--navy);
+    color: var(--cream);
+  }
+  .tile-flame .big-tile-title {
+    color: var(--ember);
+  }
+  .tile-stretch {
+    background: var(--royal);
+    color: #fff;
+  }
+  .tile-shield {
+    background: var(--sky-2);
+    color: var(--navy);
+  }
+  .tile-shield .big-tile-title {
+    color: var(--royal-2);
+  }
+  .tile-rock {
+    background: var(--stone);
+    color: var(--ink);
+  }
+
+  /* sample label: always visible next to sample data */
+  .sample-tag {
+    background: var(--ember);
+    color: var(--ink);
+    border: 2px solid var(--navy);
+  }
+
+  /* explainer: four framed panels that light up in turn (CESAC title-card frames, no characters) */
+  .explainer-step {
+    border: 2px solid var(--navy);
+    border-radius: var(--r-md);
+    background: var(--paper);
+    padding: 16px;
+    transition:
+      transform 0.5s var(--spring),
+      background-color 0.4s,
+      box-shadow 0.4s;
+  }
+  .explainer-step[data-on="true"] {
+    background: var(--ember);
+    transform: translate(-2px, -2px) rotate(-1deg);
+    box-shadow: var(--sh-2);
+  }
+  .explainer-num {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid var(--navy);
+    background: var(--cream);
+    font: 900 24px/1 var(--fd);
+  }
+  .explainer-bar {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--cream-3);
+    overflow: hidden;
+  }
+  .explainer-bar > span {
+    display: block;
+    height: 100%;
+    background: var(--flame);
+    transform-origin: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

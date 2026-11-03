@@ -1,0 +1,17 @@
+{
+  "name": "@sigil/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Sigil trust engine. Ported from spikes/crypto-core; its 20 tests are the behavioural contract.",
+  "exports": {
+    ".": { "types": "./src/index.d.ts", "default": "./src/index.js" }
+  },
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "typecheck": "tsc --noEmit -p .",
+    "lint": "node --check src/sigil.js && node --check src/sample.js && node --check src/index.js"
+  },
+  "devDependencies": { "typescript": "^5", "@types/node": "^20" },
+  "engines": { "node": ">=20" }
+}
