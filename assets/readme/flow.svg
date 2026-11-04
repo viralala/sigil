@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="200" viewBox="0 0 900 200" font-family="Segoe UI,Arial,sans-serif">
+<rect width="900" height="200" rx="16" fill="#0b1020"/>
+<g text-anchor="middle" font-size="16" fill="#e2e8f0">
+<rect x="30" y="55" width="200" height="90" rx="14" fill="#16204a" stroke="#22d3ee"/><text x="130" y="95" font-weight="700">1. Issuer signs</text><text x="130" y="120" font-size="13" fill="#94a3b8">college / employer</text>
+<rect x="350" y="55" width="200" height="90" rx="14" fill="#16204a" stroke="#a78bfa"/><text x="450" y="95" font-weight="700">2. Holder carries</text><text x="450" y="120" font-size="13" fill="#94a3b8">wallet, shares with consent</text>
+<rect x="670" y="55" width="200" height="90" rx="14" fill="#16204a" stroke="#34d399"/><text x="770" y="95" font-weight="700">3. Anyone checks</text><text x="770" y="120" font-size="13" fill="#94a3b8">no call to the issuer</text></g>
+<g fill="#22d3ee"><path d="M240 100 H335" stroke="#22d3ee" stroke-width="2" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1s" repeatCount="indefinite"/></path>
+<path d="M560 100 H655" stroke="#a78bfa" stroke-width="2" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1s" repeatCount="indefinite"/></path>
+<circle cy="100" r="6"><animate attributeName="cx" values="240;335;240" dur="2.4s" repeatCount="indefinite"/></circle>
+<circle cy="100" r="6" fill="#a78bfa"><animate attributeName="cx" values="560;655;560" dur="2.4s" begin=".6s" repeatCount="indefinite"/></circle></g>
+</svg>

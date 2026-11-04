@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1020"/><stop offset="1" stop-color="#1b1446"/></linearGradient>
+<linearGradient id="t" x1="0" x2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+<rect width="900" height="260" rx="20" fill="url(#g)"/>
+<g fill="#22d3ee" opacity=".5"><circle cx="80" cy="50" r="2"><animate attributeName="opacity" values=".1;.9;.1" dur="3s" repeatCount="indefinite"/></circle><circle cx="820" cy="70" r="2"><animate attributeName="opacity" values=".9;.1;.9" dur="2.5s" repeatCount="indefinite"/></circle><circle cx="700" cy="220" r="2"><animate attributeName="opacity" values=".1;.9;.1" dur="4s" repeatCount="indefinite"/></circle><circle cx="150" cy="210" r="2"><animate attributeName="opacity" values=".9;.1;.9" dur="3.5s" repeatCount="indefinite"/></circle></g>
+<g transform="translate(130,130)">
+<circle r="62" fill="none" stroke="url(#t)" stroke-width="3" stroke-dasharray="14 8"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="18s" repeatCount="indefinite"/></circle>
+<circle r="44" fill="none" stroke="#a78bfa" stroke-width="2" opacity=".6"><animate attributeName="r" values="44;52;44" dur="3s" repeatCount="indefinite"/></circle>
+<path d="M-22 0 L-6 16 L24 -16" fill="none" stroke="#22d3ee" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="80" stroke-dashoffset="80"><animate attributeName="stroke-dashoffset" values="80;0;0;80" keyTimes="0;.3;.8;1" dur="4s" repeatCount="indefinite"/></path></g>
+<text x="250" y="125" font-family="Segoe UI,Arial,sans-serif" font-size="78" font-weight="800" fill="url(#t)" letter-spacing="4">SIGIL</text>
+<text x="252" y="165" font-family="Segoe UI,Arial,sans-serif" font-size="24" fill="#e2e8f0">Verified by signature, not by phone call.</text>
+<text x="252" y="200" font-family="Segoe UI,Arial,sans-serif" font-size="16" fill="#94a3b8">The trust layer for certificates and whole resumes</text>
+</svg>
