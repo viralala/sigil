@@ -93,3 +93,24 @@ test('confirmSample rejects bad input', () => {
   assert.throws(() => confirmSample(world, { name: 'A'.repeat(81), degree: 'B.Tech', year: 2026 }), /BAD_INPUT/);
   assert.throws(() => confirmSample(world, { name: 'Ok Name', degree: 'B.Tech', year: 1800 }), /BAD_INPUT/);
 });
+
+// Browser wallet compatibility: WebCrypto ES256 signatures must verify in the core.
+import { webcrypto } from 'node:crypto';
+import { verifyJSON, canon, packCredential, issue, newKey, keyToJwk, keyFromJwk, signJSON } from '../src/index.js';
+test('a WebCrypto P-256 signature over canon() verifies with verifyJSON', async () => {
+  const k = await webcrypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign']);
+  const spki = await webcrypto.subtle.exportKey('spki', k.publicKey);
+  const pub = Buffer.from(spki).toString('base64url');
+  const obj = { nonce: 'n', aud: 'a' };
+  const sig = await webcrypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, k.privateKey, Buffer.from(canon(obj)));
+  assert.equal(verifyJSON(obj, Buffer.from(sig).toString('base64url'), pub), true);
+  assert.equal(verifyJSON({ ...obj, aud: 'b' }, Buffer.from(sig).toString('base64url'), pub), false);
+});
+test('keys survive a JWK round trip; packed credentials are plain JSON', () => {
+  const k = newKey(); const k2 = keyFromJwk(keyToJwk(k));
+  assert.equal(k2.pub, k.pub);
+  assert.equal(verifyJSON({ a: 1 }, signJSON({ a: 1 }, k2), k.pub), true);
+  const c = issue({ issuerKey: k, issuerId: 'x', holderPub: newKey().pub, fields: { a: 1 }, statusIndex: 0, statusListId: 'l' });
+  const p = JSON.parse(JSON.stringify(packCredential(c)));
+  assert.equal(p.leaves[0].key, 'a'); assert.ok(typeof p.levels[0][0] === 'string');
+});

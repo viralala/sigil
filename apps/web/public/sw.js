@@ -1,7 +1,7 @@
 // Sigil offline shell. Pages: network first, then the cached copy, then /offline.
 // Static assets: cache first. The verify API is never cached (a stale "Real" would be a lie).
-const CACHE = "sigil-shell-v2";
-const SHELL = ["/", "/check", "/get-verified", "/sign", "/offline", "/manifest.webmanifest", "/icon.svg", "/cesac/cesac-mark-96.png"];
+const CACHE = "sigil-shell-v3";
+const SHELL = ["/", "/check", "/wallet", "/sign", "/offline", "/manifest.webmanifest", "/icon.svg", "/cesac/cesac-mark-96.png"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -19,7 +19,7 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   const url = new URL(req.url);
-  if (req.method !== "GET" || url.origin !== self.location.origin || url.pathname.startsWith("/api/")) return;
+  if (req.method !== "GET" || url.origin !== self.location.origin || url.pathname.startsWith("/api/") || url.pathname.startsWith("/s/")) return;
 
   if (req.mode === "navigate") {
     e.respondWith(

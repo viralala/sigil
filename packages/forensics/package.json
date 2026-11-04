@@ -1,0 +1,20 @@
+{
+  "name": "@sigil/forensics",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Sigil document tamper signals. Machine evidence only: never says 'verified'. Same feature code at train and serve time.",
+  "exports": {
+    ".": { "types": "./src/index.d.ts", "default": "./src/index.js" },
+    "./features": { "types": "./src/features.d.ts", "default": "./src/features.js" }
+  },
+  "files": ["src"],
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "typecheck": "tsc --noEmit -p .",
+    "lint": "node --check src/index.js && node --check src/features.js"
+  },
+  "dependencies": { "sharp": "^0.35.5" },
+  "devDependencies": { "typescript": "^5", "@types/node": "^20" },
+  "engines": { "node": ">=20" }
+}

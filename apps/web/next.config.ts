@@ -9,7 +9,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@sigil/core"],
+  transpilePackages: ["@sigil/core", "@sigil/parser", "@sigil/forensics"],
+  serverExternalPackages: ["sharp", "postgres"],
   poweredByHeader: false,
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];

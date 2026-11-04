@@ -1,7 +1,7 @@
-// Sigil crypto core (spike). Ed25519 + SHA-256 only, via node:crypto.
+// Sigil crypto core. ES256 (P-256, raw r||s signatures, as WebCrypto produces) + SHA-256, via node:crypto.
 // Models: salted Merkle selective disclosure with decoy padding, bitstring status list with
 // freshness policy, threshold-signed trust list, holder-bound + audience-bound presentations.
-import { createHash, generateKeyPairSync, sign, verify, randomBytes, createPublicKey } from 'node:crypto';
+import { createHash, createPrivateKey, generateKeyPairSync, sign, verify, randomBytes, createPublicKey } from 'node:crypto';
 
 const b64 = (b) => Buffer.from(b).toString('base64url');
 const sha = (...parts) => createHash('sha256').update(Buffer.concat(parts.map((p) => Buffer.from(p)))).digest();
@@ -14,14 +14,21 @@ function sortKeys(v) {
 
 // ---------- keys ----------
 export function newKey() {
-  const { publicKey, privateKey } = generateKeyPairSync('ed25519');
+  const { publicKey, privateKey } = generateKeyPairSync('ec', { namedCurve: 'P-256' });
   const pub = b64(publicKey.export({ type: 'spki', format: 'der' }));
   return { pub, privateKey };
 }
+/** Private key <-> JWK, for encrypted storage and for handing a bulk-issued holder key to a browser wallet. */
+export const keyToJwk = (key) => key.privateKey.export({ format: 'jwk' });
+export function keyFromJwk(jwk) {
+  const privateKey = createPrivateKey({ key: jwk, format: 'jwk' });
+  return { pub: b64(createPublicKey(privateKey).export({ type: 'spki', format: 'der' })), privateKey };
+}
 const pubObj = (pub) => createPublicKey({ key: Buffer.from(pub, 'base64url'), type: 'spki', format: 'der' });
-export const signJSON = (obj, key) => b64(sign(null, Buffer.from(canon(obj)), key.privateKey));
+const P1363 = { dsaEncoding: 'ieee-p1363' }; // fixed-length r||s; DER would fail against WebCrypto
+export const signJSON = (obj, key) => b64(sign('sha256', Buffer.from(canon(obj)), { key: key.privateKey, ...P1363 }));
 export const verifyJSON = (obj, sig, pub) => {
-  try { return verify(null, Buffer.from(canon(obj)), pubObj(pub), Buffer.from(sig, 'base64url')); } catch { return false; }
+  try { return verify('sha256', Buffer.from(canon(obj)), { key: pubObj(pub), ...P1363 }, Buffer.from(sig, 'base64url')); } catch { return false; }
 };
 export const thumbprint = (pub) => b64(sha(pub)).slice(0, 22);
 
@@ -60,6 +67,11 @@ export function issue({ issuerKey, issuerId, holderPub, fields, statusIndex, sta
   const header = { v: 1, kind, iss: issuerId, kid: thumbprint(issuerKey.pub), sub: thumbprint(holderPub), holder: holderPub,
     iat: Date.now(), exp: Date.now() + ttlDays * 864e5, root: tree.root, status: { list: statusListId, idx: statusIndex } };
   return { header, sig: signJSON(header, issuerKey), tree }; // tree stays with the holder (it holds salts)
+}
+
+/** JSON form of a credential for the holder's wallet: salts and tree levels, no Buffers. */
+export function packCredential(c) {
+  return { header: c.header, sig: c.sig, leaves: c.tree.leaves.map(({ key, value, salt }) => ({ key, value, salt })), levels: c.tree.levels.map((l) => l.map((h) => b64(h))) };
 }
 
 export const headerId = (h) => b64(sha(canon(h))); // stable id used in closing manifests

@@ -1,0 +1,193 @@
+{
+ "date": "2026-11-04",
+ "version": "tamper-gb-2026-11-04-2e3c72ba",
+ "winner": "gb",
+ "hyperparameters": {
+  "n": 300,
+  "depth": 2,
+  "lr": 0.08
+ },
+ "n_train": 1844,
+ "n_val": 480,
+ "val_candidates": [
+  {
+   "model": "logreg",
+   "hp": {
+    "C": 0.01
+   },
+   "val_auc": 0.5808,
+   "val_far_at_5frr": 0.9333
+  },
+  {
+   "model": "logreg",
+   "hp": {
+    "C": 0.1
+   },
+   "val_auc": 0.587,
+   "val_far_at_5frr": 0.9375
+  },
+  {
+   "model": "logreg",
+   "hp": {
+    "C": 1.0
+   },
+   "val_auc": 0.5878,
+   "val_far_at_5frr": 0.9
+  },
+  {
+   "model": "logreg",
+   "hp": {
+    "C": 10.0
+   },
+   "val_auc": 0.5873,
+   "val_far_at_5frr": 0.8875
+  },
+  {
+   "model": "gb",
+   "hp": {
+    "n": 150,
+    "depth": 3,
+    "lr": 0.08
+   },
+   "val_auc": 0.5684,
+   "val_far_at_5frr": 0.9
+  },
+  {
+   "model": "gb",
+   "hp": {
+    "n": 300,
+    "depth": 3,
+    "lr": 0.05
+   },
+   "val_auc": 0.5698,
+   "val_far_at_5frr": 0.9083
+  },
+  {
+   "model": "gb",
+   "hp": {
+    "n": 200,
+    "depth": 4,
+    "lr": 0.05
+   },
+   "val_auc": 0.5571,
+   "val_far_at_5frr": 0.9125
+  },
+  {
+   "model": "gb",
+   "hp": {
+    "n": 300,
+    "depth": 2,
+    "lr": 0.08
+   },
+   "val_auc": 0.5896,
+   "val_far_at_5frr": 0.925
+  },
+  {
+   "model": "mlp",
+   "hp": {
+    "hidden": [
+     32
+    ],
+    "alpha": 0.01
+   },
+   "val_auc": 0.5327,
+   "val_far_at_5frr": 0.9333
+  },
+  {
+   "model": "mlp",
+   "hp": {
+    "hidden": [
+     32
+    ],
+    "alpha": 0.1
+   },
+   "val_auc": 0.5295,
+   "val_far_at_5frr": 0.95
+  },
+  {
+   "model": "mlp",
+   "hp": {
+    "hidden": [
+     32
+    ],
+    "alpha": 1.0
+   },
+   "val_auc": 0.5434,
+   "val_far_at_5frr": 0.875
+  },
+  {
+   "model": "mlp",
+   "hp": {
+    "hidden": [
+     32,
+     16
+    ],
+    "alpha": 0.01
+   },
+   "val_auc": 0.5672,
+   "val_far_at_5frr": 0.9208
+  },
+  {
+   "model": "mlp",
+   "hp": {
+    "hidden": [
+     32,
+     16
+    ],
+    "alpha": 0.1
+   },
+   "val_auc": 0.5724,
+   "val_far_at_5frr": 0.9042
+  },
+  {
+   "model": "mlp",
+   "hp": {
+    "hidden": [
+     32,
+     16
+    ],
+    "alpha": 1.0
+   },
+   "val_auc": 0.5492,
+   "val_far_at_5frr": 0.85
+  }
+ ],
+ "val_log_loss_raw": 0.6956376674107537,
+ "val_log_loss_calibrated": 0.6828610075321978,
+ "val_reliability": [
+  {
+   "bin": [
+    0.2,
+    0.4
+   ],
+   "n": 33,
+   "mean_pred": 0.375,
+   "observed": 0.394
+  },
+  {
+   "bin": [
+    0.4,
+    0.6
+   ],
+   "n": 402,
+   "mean_pred": 0.495,
+   "observed": 0.498
+  },
+  {
+   "bin": [
+    0.6,
+    0.8
+   ],
+   "n": 45,
+   "mean_pred": 0.635,
+   "observed": 0.6
+  }
+ ],
+ "val_far_at_5frr_calibrated": 0.925,
+ "thresholds": {
+  "some": 0.6198223392286708,
+  "strong": 0.6641178321803874
+ },
+ "train_seconds": 174.9,
+ "model_bytes": 97886
+}

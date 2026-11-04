@@ -9,8 +9,10 @@ async function audit(page: import("@playwright/test").Page) {
     .map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`);
 }
 
-for (const path of ["/", "/check", "/get-verified", "/sign", "/offline"]) {
+for (const path of ["/", "/check", "/wallet", "/wallet/resume", "/wallet/share", "/wallet/activity", "/sign", "/recruiter", "/paper", "/registry", "/about", "/faq", "/privacy", "/offline"]) {
   test(`@a11y ${path} has no serious or critical issues`, async ({ page }) => {
+    // Reduced motion: the home page's scroll-in word fade would otherwise be measured at its dim first frame.
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto(path);
     expect(await audit(page)).toEqual([]);
   });

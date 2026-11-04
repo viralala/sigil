@@ -108,7 +108,7 @@ export function checkSample(world, id, { replay = false } = {}) {
     issuer: { id: org.id, name: org.name, kind: org.kind, state: org.state, tier: org.inTrustList ? org.tier : null },
     // Witness rule: only a passing check names a witness.
     witness: r.ok ? { ...WITNESS[org.kind], who: org.name, when: new Date(cred.header.iat).toISOString() } : null,
-    details: { alg: 'Ed25519 (spike; ES256 planned)', kid: cred.header.kid, statusAgeMs: r.statusAgeMs ?? null, trustListVersion: world.trust.body.version },
+    details: { alg: 'ES256', kid: cred.header.kid, statusAgeMs: r.statusAgeMs ?? null, trustListVersion: world.trust.body.version },
     checkedAt: new Date().toISOString(),
   };
 }

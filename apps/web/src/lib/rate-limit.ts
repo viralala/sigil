@@ -2,6 +2,7 @@
 const hits = new Map<string, { n: number; reset: number }>();
 
 export function allow(key: string, limit = 60, windowMs = 60_000, now = Date.now()): boolean {
+  if (process.env.SIGIL_NO_RATE_LIMIT === "1") return true;
   const h = hits.get(key);
   if (!h || now > h.reset) {
     if (hits.size > 10_000) hits.clear();

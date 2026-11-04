@@ -1,0 +1,633 @@
+{
+ "seed": 42,
+ "min_students_per_feature": 5,
+ "max_features": 20000,
+ "chosen_C": 30,
+ "cv_macro_f1_by_C": {
+  "1": 0.8813,
+  "3": 0.8904,
+  "10": 0.8996,
+  "30": 0.9002
+ },
+ "split": {
+  "train_real_rows": 7537,
+  "test_real_rows": 2318,
+  "train_students": 980,
+  "test_students": 246,
+  "students_in_both": 0
+ },
+ "mapping": {
+  "certification": "certificate",
+  "event": "event",
+  "workshop": "event",
+  "competition": "event",
+  "internship": "job",
+  "patent": "patent",
+  "journal": "publication",
+  "conference": "publication",
+  "book": "publication",
+  "book_chapter": "publication",
+  "extracurricular": "other",
+  "industry_project": "other"
+ },
+ "real_test_overall": {
+  "n": 2318,
+  "accuracy": 0.9137,
+  "macro_f1_over_classes_with_support": 0.8395,
+  "per_class": {
+   "education": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "job": {
+    "precision": 0.6825,
+    "recall": 0.8269,
+    "f1": 0.7478,
+    "support": 52
+   },
+   "certificate": {
+    "precision": 0.9699,
+    "recall": 0.9757,
+    "f1": 0.9728,
+    "support": 1154
+   },
+   "skill": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "publication": {
+    "precision": 0.9327,
+    "recall": 0.9238,
+    "f1": 0.9282,
+    "support": 105
+   },
+   "patent": {
+    "precision": 0.9,
+    "recall": 0.9153,
+    "f1": 0.9076,
+    "support": 59
+   },
+   "award": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "event": {
+    "precision": 0.9576,
+    "recall": 0.8436,
+    "f1": 0.897,
+    "support": 857
+   },
+   "other": {
+    "precision": 0.4518,
+    "recall": 0.8242,
+    "f1": 0.5837,
+    "support": 91
+   }
+  },
+  "confusion": {
+   "labels": [
+    "education",
+    "job",
+    "certificate",
+    "skill",
+    "publication",
+    "patent",
+    "award",
+    "event",
+    "other"
+   ],
+   "rows_true_cols_pred": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     43,
+     3,
+     0,
+     0,
+     0,
+     0,
+     2,
+     4
+    ],
+    [
+     0,
+     0,
+     1126,
+     2,
+     0,
+     1,
+     0,
+     17,
+     8
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     1,
+     0,
+     97,
+     5,
+     0,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     5,
+     54,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     17,
+     29,
+     3,
+     2,
+     0,
+     4,
+     723,
+     79
+    ],
+    [
+     0,
+     3,
+     2,
+     0,
+     0,
+     0,
+     0,
+     11,
+     75
+    ]
+   ]
+  }
+ },
+ "real_test_unseen_titles_only": {
+  "n": 1274,
+  "accuracy": 0.8509,
+  "macro_f1_over_classes_with_support": 0.8164,
+  "per_class": {
+   "education": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "job": {
+    "precision": 0.6774,
+    "recall": 0.84,
+    "f1": 0.75,
+    "support": 50
+   },
+   "certificate": {
+    "precision": 0.9155,
+    "recall": 0.9181,
+    "f1": 0.9168,
+    "support": 342
+   },
+   "skill": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "publication": {
+    "precision": 0.9286,
+    "recall": 0.9192,
+    "f1": 0.9239,
+    "support": 99
+   },
+   "patent": {
+    "precision": 0.8605,
+    "recall": 0.881,
+    "f1": 0.8706,
+    "support": 42
+   },
+   "award": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "event": {
+    "precision": 0.9434,
+    "recall": 0.81,
+    "f1": 0.8716,
+    "support": 658
+   },
+   "other": {
+    "precision": 0.4351,
+    "recall": 0.8072,
+    "f1": 0.5654,
+    "support": 83
+   }
+  },
+  "confusion": {
+   "labels": [
+    "education",
+    "job",
+    "certificate",
+    "skill",
+    "publication",
+    "patent",
+    "award",
+    "event",
+    "other"
+   ],
+   "rows_true_cols_pred": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     42,
+     2,
+     0,
+     0,
+     0,
+     0,
+     2,
+     4
+    ],
+    [
+     0,
+     0,
+     314,
+     2,
+     0,
+     1,
+     0,
+     17,
+     8
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     1,
+     0,
+     91,
+     5,
+     0,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     5,
+     37,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     17,
+     24,
+     3,
+     2,
+     0,
+     4,
+     533,
+     75
+    ],
+    [
+     0,
+     3,
+     2,
+     0,
+     0,
+     0,
+     0,
+     11,
+     67
+    ]
+   ]
+  }
+ },
+ "real_test_by_original_kind": {
+  "certification": {
+   "n": 1154,
+   "accuracy": 0.9757
+  },
+  "competition": {
+   "n": 256,
+   "accuracy": 0.6133
+  },
+  "conference": {
+   "n": 74,
+   "accuracy": 0.9054
+  },
+  "event": {
+   "n": 502,
+   "accuracy": 0.9781
+  },
+  "extracurricular": {
+   "n": 91,
+   "accuracy": 0.8242
+  },
+  "internship": {
+   "n": 52,
+   "accuracy": 0.8269
+  },
+  "journal": {
+   "n": 28,
+   "accuracy": 1.0
+  },
+  "patent": {
+   "n": 59,
+   "accuracy": 0.9153
+  },
+  "workshop": {
+   "n": 99,
+   "accuracy": 0.7576
+  }
+ },
+ "majority_baseline_accuracy_real_test": 0.4978,
+ "synthetic_heldout_lexicon": {
+  "n": 494,
+  "accuracy": 0.4717,
+  "macro_f1_over_classes_with_support": 0.6715,
+  "per_class": {
+   "education": {
+    "precision": 1.0,
+    "recall": 0.5467,
+    "f1": 0.7069,
+    "support": 150
+   },
+   "job": {
+    "precision": 0.9744,
+    "recall": 0.5067,
+    "f1": 0.6667,
+    "support": 150
+   },
+   "certificate": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "skill": {
+    "precision": 0.7805,
+    "recall": 0.2133,
+    "f1": 0.3351,
+    "support": 150
+   },
+   "publication": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "patent": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "award": {
+    "precision": 0.9773,
+    "recall": 0.9773,
+    "f1": 0.9773,
+    "support": 44
+   },
+   "event": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "other": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   }
+  },
+  "confusion": {
+   "labels": [
+    "education",
+    "job",
+    "certificate",
+    "skill",
+    "publication",
+    "patent",
+    "award",
+    "event",
+    "other"
+   ],
+   "rows_true_cols_pred": [
+    [
+     82,
+     0,
+     30,
+     0,
+     0,
+     0,
+     1,
+     23,
+     14
+    ],
+    [
+     0,
+     76,
+     23,
+     9,
+     0,
+     17,
+     0,
+     0,
+     25
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     2,
+     60,
+     32,
+     1,
+     0,
+     0,
+     24,
+     31
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     43,
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   ]
+  }
+ },
+ "confidence_calibration_real_test": [
+  {
+   "conf_range": [
+    0,
+    0.5
+   ],
+   "n": 60,
+   "accuracy": 0.3667
+  },
+  {
+   "conf_range": [
+    0.5,
+    0.7
+   ],
+   "n": 132,
+   "accuracy": 0.6212
+  },
+  {
+   "conf_range": [
+    0.7,
+    0.9
+   ],
+   "n": 262,
+   "accuracy": 0.7672
+  },
+  {
+   "conf_range": [
+    0.9,
+    1.0
+   ],
+   "n": 1864,
+   "accuracy": 0.9726
+  }
+ ],
+ "eval_model_vocab_size": 13820,
+ "vocab_stripped_by_name_rule": 241
+}

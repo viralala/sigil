@@ -92,6 +92,7 @@ export const hi: Dict = {
       title: "किसने गवाही दी",
       signed: "{who} ने खुद साइन किया।",
       "email-confirmed": "{who} ने आधिकारिक ईमेल से पुष्टि की।",
+      "console-confirmed": "{who} ने अपने Sigil कंसोल में पुष्टि की।",
       when: "{date} को।",
       none: "अभी तक किसी ने गवाही नहीं दी।",
     },

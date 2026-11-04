@@ -24,12 +24,14 @@ describe("i18n", () => {
     });
   }
   it("English copy has no em dashes and no jargon words", () => {
-    const text = leaves(getDict("en")).map(([, v]) => v).join(" ").toLowerCase();
+    // The developer page names real API paths on purpose.
+    const text = leaves(getDict("en")).filter(([k]) => !k.startsWith("site.dev")).map(([, v]) => v).join(" ").toLowerCase();
     expect(text).not.toContain("—");
     for (const w of ["hash", "merkle", "credential", "nonce", "jwt", "did:"]) expect(text).not.toContain(w);
   });
   it("English sentences stay short (12 words or fewer)", () => {
     const long = leaves(getDict("en"))
+      .filter(([k]) => !/\.curve\d?$/.test(k)) // decorative scrolling bands, not sentences
       .map(([, v]) => v)
       .filter((s) => !s.startsWith("Sigil:"))
       .flatMap((s) => s.split(/(?<=[.?!])\s+/))

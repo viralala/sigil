@@ -1,46 +1,29 @@
-import { cookies } from "next/headers";
-import { getDict, isLocale, LOCALE_COOKIE } from "@/lib/i18n";
-import { BigTile } from "@/components/ui/big-tile";
-import { Explainer } from "@/components/site/explainer";
-import { Icon } from "@/components/ui/icon";
+import { getT } from "@/lib/i18n/server";
+import { Curve, Doors, Enter, Hero, Ladder, Loader, Powers, Rail, Shaft, Statement, Stickers } from "@/components/f4/home";
+import { F4Motion } from "@/components/f4/motion";
+
+const TEAM = ["Viral Dhoka", "Tanaya Thorat", "Nayan Thakare", "Shreenath Utekar"];
 
 export default async function Home() {
-  const v = (await cookies()).get(LOCALE_COOKIE)?.value;
-  const t = getDict(isLocale(v) ? v : "en");
-  const tiles = t.home.tiles;
-
+  const t = await getT();
+  const h = t.site.home;
   return (
-    <div className="wrap">
-      <div className="mx-auto max-w-6xl">
-        <section className="halftone-royal relative mt-6 overflow-hidden rounded-[var(--r-xl)] border-[3px] border-navy p-6 shadow-hard-3 sm:p-10">
-          <span className="spark" style={{ top: "14%", right: "8%", ["--s" as string]: "34px", ["--c" as string]: "var(--ember)" }} />
-          <span className="spark" style={{ bottom: "16%", right: "22%", ["--s" as string]: "18px", ["--d" as string]: "4s" }} />
-          <p className="eyebrow m-0 text-cream">{t.home.eyebrow}</p>
-          <h1 className="rise mt-4 max-w-[14ch] text-[clamp(52px,9vw,112px)] text-cream">{t.home.title}</h1>
-          <p className="mt-5 max-w-[46ch] text-lg font-medium sm:text-xl">{t.home.lead}</p>
-        </section>
-
-        <h2 className="mt-12 mb-5 text-4xl sm:text-5xl">{t.home.pick}</h2>
-        <nav aria-label={t.home.pick} className="grid gap-5 md:grid-cols-3">
-          <BigTile href="/get-verified" power="stretch" icon="user" {...tiles.holder} />
-          <BigTile href="/check" power="flame" icon="check" {...tiles.verifier} />
-          <BigTile href="/sign" power="rock" icon="pen" {...tiles.issuer} />
-        </nav>
-
-        <div className="mt-12">
-          <Explainer />
-        </div>
-
-        <section className="mt-12 grid items-start gap-4 sm:grid-cols-[auto_1fr]">
-          <span className="grid h-16 w-16 place-items-center rounded-[var(--r-md)] border-2 border-navy bg-ember text-4xl shadow-hard-1">
-            <Icon name="eye" />
-          </span>
-          <div>
-            <h2 className="text-4xl">{t.home.honest.title}</h2>
-            <p className="mt-3 max-w-[60ch] text-lg">{t.home.honest.body}</p>
-          </div>
-        </section>
-      </div>
+    <div className="f4">
+      <Loader />
+      <Hero t={h} />
+      <Curve id="c-hero" d="M-40 40 C 300 170, 900 170, 1240 40" text={h.curve1} colour="var(--royal)" />
+      <Statement t={h} />
+      <Powers t={h} />
+      <Curve id="c-powers" d="M-40 110 C 200 10, 400 10, 600 90 S 1000 170, 1240 70" text={h.curve2} colour="var(--flame)" direction={-1} />
+      <Doors t={h} />
+      <Rail t={h} tags={t.check.tags} />
+      <Curve id="c-rail" d="M-40 150 C 300 10, 900 10, 1240 150" text={h.curve3} colour="var(--navy)" />
+      <Shaft t={h} />
+      <Enter t={h} />
+      <Ladder t={h} team={TEAM} />
+      <Curve id="c-ladder" d="M-40 60 C 250 160, 500 160, 640 90 S 1000 10, 1240 110" text={h.curve4} colour="var(--royal)" direction={-1} />
+      <Stickers t={h} />
+      <F4Motion />
     </div>
   );
 }

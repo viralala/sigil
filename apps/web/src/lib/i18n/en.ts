@@ -91,6 +91,7 @@ export const en = {
       title: "Who vouched",
       signed: "{who} signed it themselves.",
       "email-confirmed": "{who} confirmed it by official email.",
+      "console-confirmed": "{who} confirmed it in their Sigil console.",
       when: "On {date}.",
       none: "No one has vouched for this yet.",
     },

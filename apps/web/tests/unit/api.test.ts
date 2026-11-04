@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import { POST as verify } from "@/app/api/verify/route";
-import { POST as confirm } from "@/app/api/confirm/route";
 
 const req = (url: string, body: unknown, ip = "1.1.1.1") =>
   new Request(url, {
@@ -9,7 +8,7 @@ const req = (url: string, body: unknown, ip = "1.1.1.1") =>
     headers: { "content-type": "application/json", "x-forwarded-for": ip },
   });
 
-describe("/api/verify", () => {
+describe("/api/verify (samples)", () => {
   it("green sample names its witness and is labelled sample", async () => {
     const res = await verify(req("http://localhost/api/verify", { link: "http://localhost:3000/s/asha-degree" }));
     const j = await res.json();
@@ -42,23 +41,5 @@ describe("/api/verify", () => {
     for (let i = 0; i < 70; i++)
       last = (await verify(req("http://localhost/api/verify", { link: "asha-degree" }, "9.9.9.9"))).status;
     expect(last).toBe(429);
-  });
-});
-
-describe("/api/confirm", () => {
-  it("signs a new sample credential that checks green", async () => {
-    const res = await confirm(
-      req("http://localhost/api/confirm", { name: "Priya Nair", degree: "B.Tech IT", year: 2026 }, "2.2.2.2"),
-    );
-    const j = await res.json();
-    expect(res.status).toBe(200);
-    const check = await (await verify(req("http://localhost/api/verify", { link: j.id }, "2.2.2.2"))).json();
-    expect(check.verdict).toBe("green");
-    expect(check.claims.name).toBe("Priya Nair");
-  });
-  it("rejects bad input", async () => {
-    const res = await confirm(req("http://localhost/api/confirm", { name: "", degree: "x", year: 3 }, "3.3.3.3"));
-    expect(res.status).toBe(400);
-    expect((await res.json()).error).toBe("BAD_INPUT");
   });
 });

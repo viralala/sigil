@@ -21,7 +21,14 @@
 | 17 | AI proposes, humans confirm, rules/signatures decide | Hallucination and injection risk | Never |
 | 18 | Legal custody of records after closure in India | UNKNOWN; ask registrar + lawyer | Before pilot |
 | 19 | Look = shipped CESAC Fantastic 4 theme (cesac-app/src/themes/fantastic-four.css): Big Shoulders/Figtree/Space Mono, cream #FFF5E3, royal #1F6FD1, navy #0B2350, rounded-rect buttons (never pills). Replaces the Antonio/Inter placeholders | That theme is what CESAC actually shipped; placeholders were guesses | Team picks a different CESAC direction |
-| 20 | Display font uses `display: "optional"` | Swap caused layout shift (CLS 0.12) and slow LCP; optional gave CLS 0 and perf 97 | First-visit headings in the fallback face look wrong on slow networks |
+| 20 | Display font: one 900 weight file, `display: "swap"`, Impact fallback | `optional` scored better but dropped the second weight on slow loads and headings lost the CESAC look | Self-host with measured fallback metrics |
 | 21 | Spike command is `node --test spikes/crypto-core/sigil.test.js` | On Node 24, `node --test <folder>` runs the folder as a script and fails | Never |
 | 22 | Demo sample world: fresh keys per server start, kept in memory, holder wallet simulated server side; everything labelled Sample | Real issue->present->verify path with no database yet | Before deployed demos: persist in Supabase |
-
+| 23 | Real CESAC data stays out of the repo and off the site. The student CSV and real certificates live in a private folder outside the repo; only aggregates, model weights checked for leaks, and file fingerprints may leave it | The repo is public; 1,226 real students | Consent and a legal basis to do otherwise |
+| 24 | Keys: ES256 everywhere in packages/core. Spike stays Ed25519 as the historic contract | Browser wallets use WebCrypto P-256 | Never |
+| 25 | Holder identity = non-extractable device key in IndexedDB, no email or password; Supabase Auth not used. Seals are ECDH-encrypted to the device; share links are AES-GCM with the key in the URL fragment | Keeps "server stores no personal fields"; no email provider is configured | Add recovery (P4) and passkeys |
+| 26 | Issuers sign in with an org access code; requests wait in an org console queue, not an emailed link | A forwarded confirm link would let a holder confirm their own claim; no mail provider yet | Add domain-verified email (W3 as specified) |
+| 27 | Org keys are custodied by Sigil (AES-GCM under SIGIL_MASTER_KEY), so console confirmations are shown as W3, never W1 | Honest about who actually signed | Issuer self-custody |
+| 28 | Trust list root keys are kept offline in the private folder; the server holds only root public keys | A server breach must not mint a trust list | Move to real trustees |
+| 29 | DB access is a dedicated sigil_app role through the Supabase pooler; RLS on, anon gets nothing, audit_log is append only | No service role key was available; narrower anyway | Never |
+| 30 | Share links are bearer links bound to the share id, not to one recruiter or a live nonce. Sample flow still uses one-time nonces | A static link cannot answer a live challenge | Add an in-person live QR mode |

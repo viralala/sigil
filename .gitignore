@@ -15,3 +15,12 @@ test-results
 .env*
 
 !.env.example
+
+# never commit real data or heavy renders
+*.csv
+!apps/web/tests/**/*.csv
+video/sigil-film/renders/
+video/sigil-film/node_modules/
+.agents/
+video/sigil-film/
+AGENTS.md

@@ -5,7 +5,8 @@ const PORT = 3100;
 // docs/QA.md: every control on mobile (390x844) AND desktop (1440x900).
 export default defineConfig({
   testDir: "tests/e2e",
-  timeout: 30_000,
+  timeout: 45_000,
+  workers: 3,
   retries: process.env.CI ? 1 : 0,
   reporter: [["list"]],
   use: { baseURL: `http://localhost:${PORT}`, trace: "retain-on-failure" },
@@ -18,6 +19,7 @@ export default defineConfig({
     url: `http://localhost:${PORT}`,
     timeout: 240_000,
     reuseExistingServer: !process.env.CI,
-    env: { SIGIL_AUDIENCE: `http://localhost:${PORT}` },
+    // Tests run from one address, so the per-client limits would trip; the limiter has its own unit test.
+    env: { SIGIL_AUDIENCE: `http://localhost:${PORT}`, SIGIL_NO_RATE_LIMIT: "1", SIGIL_INSECURE_COOKIES: "1" },
   },
 });

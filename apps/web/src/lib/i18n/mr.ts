@@ -92,6 +92,7 @@ export const mr: Dict = {
       title: "कोणी साक्ष दिली",
       signed: "{who} यांनी स्वतः सही केली.",
       "email-confirmed": "{who} यांनी अधिकृत ईमेलने खात्री केली.",
+      "console-confirmed": "{who} यांनी त्यांच्या Sigil कन्सोलमध्ये खात्री केली.",
       when: "{date} रोजी.",
       none: "अजून कोणीही साक्ष दिलेली नाही.",
     },

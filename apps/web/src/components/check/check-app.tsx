@@ -32,6 +32,12 @@ export function CheckApp({ initial }: { initial?: string }) {
   const heading = useRef<HTMLHeadingElement>(null);
 
   const run = useCallback(async (value: string) => {
+    // A real share link carries its key in the fragment: open it in place so the key stays in this browser.
+    const share = value.trim().match(/\/s\/(sh_[a-z0-9]{16}#k=[\w-]+)/);
+    if (share) {
+      window.location.assign(`/s/${share[1]}`);
+      return;
+    }
     const parsed = parseShareLink(value);
     if (!parsed.ok) {
       setState({ s: "error", code: parsed.error });

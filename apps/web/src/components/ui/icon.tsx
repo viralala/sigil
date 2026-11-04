@@ -22,6 +22,8 @@ const PATHS = {
       <circle cx="12" cy="12" r="3" />
     </>
   ),
+  menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+  upload: <path d="M12 16V5m-5 5 5-5 5 5M5 19h14" />,
   arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
   qr: (
     <>
