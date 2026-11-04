@@ -6,7 +6,8 @@ const PORT = 3100;
 export default defineConfig({
   testDir: "tests/e2e",
   timeout: 45_000,
-  workers: 3,
+  // The end-to-end journeys share the seeded database; serialize them to avoid cross-test writes.
+  workers: 1,
   retries: process.env.CI ? 1 : 0,
   reporter: [["list"]],
   use: { baseURL: `http://localhost:${PORT}`, trace: "retain-on-failure" },

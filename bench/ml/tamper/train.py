@@ -6,7 +6,7 @@ Uses ONLY the train and val splits. The test splits are never read here
 
 Usage: python train.py [features.csv] [manifest.csv]
 """
-import csv, hashlib, json, os, sys, time, datetime
+import csv, hashlib, json, os, re, sys, time, datetime
 import numpy as np
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
@@ -16,6 +16,9 @@ from sklearn.neural_network import MLPClassifier
 PRIV = os.environ.get("SIGIL_PRIV", r"D:\Study FY\sigil-private\ml-tamper")
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT_MODEL = os.path.join(HERE, "..", "..", "..", "packages", "forensics", "src", "model.json")
+FEATURE_SOURCE = os.path.join(HERE, "..", "..", "..", "packages", "forensics", "src", "features.js")
+with open(FEATURE_SOURCE, encoding="utf-8") as f:
+    FEATURE_VERSION = int(re.search(r"export const FEATURE_VERSION = (\d+)", f.read()).group(1))
 FEATS = sys.argv[1] if len(sys.argv) > 1 else f"{PRIV}/features.csv"
 MAN = sys.argv[2] if len(sys.argv) > 2 else f"{PRIV}/manifest.csv"
 CLIP = 6.0
@@ -143,7 +146,7 @@ def main():
         "family": "sigil-forensics",
         "kind": kind,
         "hyperparameters": hp,
-        "featureVersion": 1,
+        "featureVersion": FEATURE_VERSION,
         "trainedOn": datetime.date.today().isoformat(),
         "featureNames": names,
         "mean": mu.tolist(), "std": sd.tolist(), "clip": CLIP,

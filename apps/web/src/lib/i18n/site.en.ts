@@ -266,7 +266,7 @@ export const siteEn = {
     how: "How we checked: file fingerprint. The file stayed on your device.",
     signsTitle: "Signs of editing",
     levels: { no_signs: "No signs found", some_signs: "Some signs found", strong_signs: "Strong signs found" } as Record<string, string>,
-    caution: "This is a machine guess. It never decides. Ask the issuer if unsure.",
+    caution: "This experimental check scored near chance on held-out samples. It never decides. Ask the issuer if unsure.",
     upload: "The photo was checked in memory and not kept.",
     pdfNote: "We looked at page one of the PDF.",
     tooBig: "That file is too big. Use one under 4 MB.",

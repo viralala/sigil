@@ -71,6 +71,19 @@ test.describe("home", () => {
     expect((await trust.json()).sigs.length).toBeGreaterThanOrEqual(2);
   });
 
+  test("about page video and poster assets load", async ({ page, request }) => {
+    const video = await request.get("/Sigil_56s.mp4");
+    expect(video.ok(), `video asset returned ${video.status()}`).toBe(true);
+    expect(video.headers()["content-type"]).toContain("video/mp4");
+
+    const poster = await request.get("/film-poster.jpg");
+    expect(poster.ok()).toBe(true);
+    expect(poster.headers()["content-type"]).toContain("image/jpeg");
+
+    await page.goto("/about");
+    await expect(page.getByTestId("film")).toHaveAttribute("poster", "/film-poster.jpg");
+  });
+
   test("registry shows closed and fake states and marks samples", async ({ page }) => {
     await page.goto("/registry");
     await expect(page.locator('[data-state="closed"]')).toContainText("Sample Western University");

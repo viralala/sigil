@@ -6,7 +6,7 @@ Legend: [ ] todo, [x] done. Owner suggestions in brackets. Dates are relative (D
 - [x] pnpm + Turborepo monorepo; `apps/web` (Next.js, TS, Tailwind, shadcn); ESLint, Prettier, Vitest, Playwright, axe wired [Nayan]
 - [x] Move `spikes/crypto-core` into `packages/core` keeping 12 tests green [Viral] (all 20 contract tests green + 20 sample-pack tests)
 - [x] Supabase project `sigil` (see CLAUDE.md note on free-tier slots) + `.env.example` + RLS-on-by-default migration [Shreenath] (ref kaabtrcfacsyjzxgiedm, ap-south-1, $0)
-- [ ] Vercel project `sigil`, preview deploys, CI (typecheck, lint, test, e2e) [Nayan] (PARTIAL: project created + one CLI preview deploy works; `.github/workflows/ci.yml` written but never run because the folder is not a git repo yet. Needs: git init, GitHub repo, connect it to the Vercel project)
+- [ ] Vercel project `sigil`, preview deploys, CI (typecheck, lint, test, e2e) [Nayan] (PARTIAL: GitHub repo and Vercel project exist; latest CI stopped at `pnpm test` because the forensics model version was stale. Fixed locally; database/runtime secrets are now wired to CI. Re-run CI on the updated branch and confirm preview deployment.)
 - [ ] Tokens + fonts (Antonio, Inter) + `Button`, `Card`, `StatusBadge`, `BigTile` components with stories [Nayan] (PARTIAL: tokens + fonts now from the shipped CESAC theme (Big Shoulders/Figtree/Space Mono, see design/CESAC_REFERENCE.md); all four components built with unit tests; stories NOT done, no Storybook yet)
 
 ## P1 Website first (D1-D4): public site that already works
@@ -88,8 +88,8 @@ Legend: [ ] todo, [x] done. Owner suggestions in brackets. Dates are relative (D
 ## Demo blockers
 Found walking docs/DEMO_SCRIPT.md on 2026-11-04 against what P0/P1 built. Not bugs; these steps need later phases.
 - 0:00 hook says "two seconds": not measured yet. Measure verify latency in `bench/` (P8) or drop the number.
-- 0:10 resume photo upload + claim cards (P5) and "Ask ... to confirm" (P10 W3): not built. The registrar "Yes, that is right" tap IS built (/sign) and signs a real sample Seal.
-- 1:00 consent screen + share QR (P4): only a fixed sample Seal + QR on /get-verified.
+- 0:10 resume photo upload is not built; pasted resume text becomes editable claim cards. Claim requests and the Sample issuer console approval work. Confirmation is not emailed.
+- 1:00 consent screen + share QR (P4): built for the wallet share flow; `/get-verified` remains a fixed Sample Seal.
 - 1:30 airplane-mode verify: not built. The service worker never caches /api/verify on purpose; offline verify needs the static trust/status lists (P10 Sigil-survives-Sigil).
 - 2:10 (b) "same QR scanned twice": the core rejects replays (tested), but the UI simulates the wallet and makes a fresh proof each time, so it cannot be shown on stage yet. (c) live revoke: only a pre-revoked sample. (d) edited PDF: only an edited-grade sample (Seal check is P10).
 - 2:40 "VIT closes" toggle: closed-college sample works, no toggle.
@@ -99,3 +99,4 @@ Found walking docs/DEMO_SCRIPT.md on 2026-11-04 against what P0/P1 built. Not bu
 - 2026-11-03: scaffold created by Claude (chat). crypto-core spike 12/12 passing.
 - 2026-11-03: added problem register, AI plan, witness model, lifecycle states (closed/derecognised/fake/retired) to spike; spike now 20/20 passing.
 - 2026-11-04: P0+P1 by Claude. pnpm/Turborepo monorepo; packages/core (spike ported, 40/40 incl. the 20 contract tests + sample pack + one-tap confirm); apps/web Next.js 15 with CESAC Fantastic 4 tokens taken from the shipped theme (design/CESAC_REFERENCE.md); landing (3 tiles + 20s explainer), /check (paste, QR camera, 10 samples, traffic light, witness, Why?, nerds, read aloud), /get-verified (sample Seal + QR), /sign (one-tap confirm really signs); EN/HI/MR; PWA. Gate: typecheck, lint, 34 unit, 79 e2e+axe (mobile+desktop), spike 20/20, Lighthouse 97/100/100. Supabase `sigil` created with RLS-on-by-default trigger; Vercel `sigil` created + preview deploy. Open: CI never run (no git repo), Storybook stories, HI/MR review.
+- 2026-11-04: Fixed the about-page film paths; added asset checks. Fixed the forensics model/feature version mismatch and evaluator dtype bug. Regenerated 3,364 private feature rows; held-out tamper AUC is 0.529 overall, so the model is experimental and weak. Updated English warning and pitch/demo scripts. Local checks: typecheck, lint, unit, 20/20 spike, 108 E2E passed with one worker; 2 desktop/mobile-project skips. Lighthouse 13.6.0: home 91/100/100 (performance/accessibility/best practices), /check 100/100/100. CI rerun pending on review branch.

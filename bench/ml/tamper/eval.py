@@ -27,7 +27,7 @@ def raw_score(Z):
     if m["type"] == "logreg":
         return Z @ np.array(m["w"]) + m["b"]
     if m["type"] == "gb":
-        s = np.full(len(Z), m["init"])
+        s = np.full(len(Z), m["init"], dtype=float)
         for t in m["trees"]:
             f, th, l, r, v = (np.array(t[k]) for k in ("f", "t", "l", "r", "v"))
             node = np.zeros(len(Z), int)

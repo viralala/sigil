@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import sharp from 'sharp';
 import { analyzeImage, ForensicsError, MAX_BYTES, modelInfo, scoreFeatures, levelOf } from '../src/index.js';
-import { extractFeatures } from '../src/features.js';
+import { extractFeatures, FEATURE_VERSION } from '../src/features.js';
 import model from '../src/model.js';
 
 const W = 1100, H = 780;
@@ -104,13 +104,15 @@ test('rejects tiny images', async () => {
 });
 
 test('feature code and model file agree (same names, same order, finite numbers)', async () => {
-  const { names, values } = await extractFeatures(await sampleCertificate());
+  assert.equal(FEATURE_VERSION, model.featureVersion);
+  const sample = await sampleCertificate();
+  const { names, values } = await extractFeatures(sample);
   assert.deepEqual(names, model.featureNames);
   assert.equal(values.length, model.mean.length);
   assert.ok(values.every(Number.isFinite));
   const s = scoreFeatures(values);
   assert.ok(s >= 0 && s <= 1);
-  assert.equal(levelOf(s), (await analyzeImage(await sampleCertificate())).level);
+  assert.equal(levelOf(s), (await analyzeImage(sample)).level);
 });
 
 test('every explanation sentence is short and jargon-free', () => {

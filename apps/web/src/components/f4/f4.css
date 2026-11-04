@@ -554,7 +554,7 @@ html.f4-seen .f4 .hero .rise {
   display: inline-block;
 }
 html.f4-motion .f4 .statement .big .w {
-  opacity: 0.16;
+  opacity: 0.8;
 }
 .f4 .statement .big .hl {
   color: var(--royal);
@@ -1412,7 +1412,7 @@ html:not(.f4-motion) .f4 .enter-copy {
   cursor: default;
 }
 html.f4-motion .f4 .v-item {
-  opacity: 0.22;
+  opacity: 1;
 }
 .f4 .v-item small {
   display: block;

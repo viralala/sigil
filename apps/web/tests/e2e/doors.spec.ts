@@ -1,8 +1,11 @@
 import { expect, test, type Page } from "@playwright/test";
 
 // The real path, against the real database: resume -> ask -> registrar taps yes -> share -> recruiter checks.
-const RESUME = `Asha Tester
-asha@example.com
+const RUN_ID = Date.now().toString(36);
+const HOLDER = `Asha Tester ${RUN_ID}`;
+const CANCEL_REF = `E2E-CANCEL-${RUN_ID}`;
+const RESUME = `${HOLDER}
+asha-${RUN_ID}@example.com
 
 Education
 B.Tech Computer Engineering, Sample Deccan Institute of Technology, 2022 - 2026
@@ -16,7 +19,7 @@ Python, TypeScript`;
 async function holderWithCard(page: Page) {
   await page.goto("/wallet");
   await expect(page.getByTestId("wallet")).toBeVisible();
-  await page.getByTestId("name").fill("Asha Tester");
+  await page.getByTestId("name").fill(HOLDER);
   await page.getByTestId("save-name").click();
   await page.getByTestId("to-resume").click();
   await page.getByTestId("resume-text").fill(RESUME);
@@ -36,6 +39,10 @@ async function issuerSignIn(page: Page) {
 test.describe("full journey", () => {
   test.describe.configure({ timeout: 90_000 });
 
+  test.afterEach(async ({ page, browser }) => {
+    await Promise.all(browser.contexts().filter((context) => context !== page.context()).map((context) => context.close()));
+  });
+
   test("resume to Seal to share to check, then stop sharing", async ({ page, browser }) => {
     await holderWithCard(page);
     const card = page.getByTestId("claim-card").first();
@@ -46,7 +53,7 @@ test.describe("full journey", () => {
 
     const reg = await (await browser.newContext()).newPage();
     await issuerSignIn(reg);
-    const mine = reg.getByTestId("request").filter({ hasText: "Asha Tester" }).first();
+    const mine = reg.getByTestId("request").filter({ hasText: HOLDER });
     await mine.getByTestId("yes").click();
     await expect(reg.getByTestId("sign-note")).toContainText("Signed");
 
@@ -85,7 +92,7 @@ test.describe("full journey", () => {
   test("a cancelled Seal goes red on an existing link", async ({ page, browser }) => {
     await issuerSignIn(page);
     await page.getByTestId("tab-bulk").click();
-    await page.getByTestId("csv").fill("name,title,year,ref\nTest Holder,B.Tech Test,2026,E2E-CANCEL\n,no name,2026,E2E-BAD");
+    await page.getByTestId("csv").fill(`name,title,year,ref\nTest Holder,B.Tech Test,2026,${CANCEL_REF}\n,no name,2026,E2E-BAD-${RUN_ID}`);
     await page.getByTestId("bulk-run").click();
     await expect(page.getByTestId("bulk-bad")).toContainText("Line 2");
     const path = await page.getByTestId("bulk-links").locator("li").first().textContent();
@@ -103,8 +110,8 @@ test.describe("full journey", () => {
     await expect(hr.getByTestId("share-view")).toHaveAttribute("data-verdict", "green");
 
     await page.getByTestId("tab-issued").click();
-    await page.getByTestId("issued").filter({ hasText: "E2E-CANCEL" }).first().getByTestId("cancel").click();
-    await expect(page.getByTestId("issued").filter({ hasText: "E2E-CANCEL" }).first()).toContainText("Cancelled");
+    await page.getByTestId("issued").filter({ hasText: CANCEL_REF }).getByTestId("cancel").click();
+    await expect(page.getByTestId("issued").filter({ hasText: CANCEL_REF })).toContainText("Cancelled");
 
     await hr.reload();
     await expect(hr.getByTestId("share-view")).toHaveAttribute("data-verdict", "red");
@@ -154,7 +161,7 @@ test.describe("paper check", () => {
     await page.getByTestId("paper-run").click();
     await expect(page.getByTestId("paper-hash")).toHaveAttribute("data-match", "false");
     await expect(page.getByTestId("paper-hash")).toContainText("does not mean it is fake");
-    await expect(page.getByTestId("paper-scan")).toContainText("machine guess");
+    await expect(page.getByTestId("paper-scan")).toContainText("near chance");
   });
   test("a non-image is refused", async ({ page }) => {
     await page.goto("/paper");
